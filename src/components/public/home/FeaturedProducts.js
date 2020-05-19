@@ -6,13 +6,13 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Slider from "react-slick";
 
 const PrevArrow = ({ style, onClick }) => (
-    <button class="arrow-slick2 prev-slick2" style={{ ...style }}>
-        <FontAwesomeIcon icon={faAngleLeft} aria-hidden="true" onClick={onClick} />
+    <button class="arrow-slick2 prev-slick2" style={{ ...style }} onClick={onClick}>
+        <FontAwesomeIcon icon={faAngleLeft} aria-hidden="true" />
     </button>
 )
 const NextArrow = ({ style, onClick }) => (
-    <button class="arrow-slick2 next-slick2" style={{ ...style }}>
-        <FontAwesomeIcon icon={faAngleRight} aria-hidden="true" onClick={onClick} />
+    <button class="arrow-slick2 next-slick2" style={{ ...style }} onClick={onClick}>
+        <FontAwesomeIcon icon={faAngleRight} aria-hidden="true" />
     </button>
 )
 

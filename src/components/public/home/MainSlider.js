@@ -38,7 +38,7 @@ const MainSlider = () => {
                 <Slider {...sliderSettings}>
 
                     <div>
-                        <div className="item-slick1 item1-slick1" style={{ backgroundImage: `url(photos/0C6F8679-CD1B-4D26-997E-CB0D1CDC5617.jpg)`, objectPosition: "50% -0%", objectFit: 'cover' }}>
+                        <div className="item-slick1 item1-slick1" style={{ backgroundImage: `url(photos/0C6F8679-CD1B-4D26-997E-CB0D1CDC5617.jpg)` }}>
                             <div className="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
                                 <span className="caption1-slide1 m-text1 t-center m-b-15" >
                                     Velvet Collection 2020
