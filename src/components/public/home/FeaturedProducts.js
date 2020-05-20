@@ -6,12 +6,12 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import Slider from "react-slick";
 
 const PrevArrow = ({ style, onClick }) => (
-    <button class="arrow-slick2 prev-slick2" style={{ ...style }} onClick={onClick}>
+    <button className="arrow-slick2 prev-slick2" style={{ ...style }} onClick={onClick}>
         <FontAwesomeIcon icon={faAngleLeft} aria-hidden="true" />
     </button>
 )
 const NextArrow = ({ style, onClick }) => (
-    <button class="arrow-slick2 next-slick2" style={{ ...style }} onClick={onClick}>
+    <button className="arrow-slick2 next-slick2" style={{ ...style }} onClick={onClick}>
         <FontAwesomeIcon icon={faAngleRight} aria-hidden="true" />
     </button>
 )
@@ -84,7 +84,7 @@ const FeaturedProducts = () => {
                                 <img src="photos/IMG_7783.JPG" alt="IMG-PRODUCT" style={imgStyle} />
 
                                 <div className="block2-overlay trans-0-4">
-                                    <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                    <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                         <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
@@ -117,7 +117,7 @@ const FeaturedProducts = () => {
                                 <img src="photos/IMG_7783.JPG" alt="IMG-PRODUCT" style={imgStyle} />
 
                                 <div className="block2-overlay trans-0-4">
-                                    <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                    <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                         <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
@@ -150,7 +150,7 @@ const FeaturedProducts = () => {
                                 <img src="photos/IMG_7783.JPG" alt="IMG-PRODUCT" style={imgStyle} />
 
                                 <div className="block2-overlay trans-0-4">
-                                    <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                    <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                         <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
@@ -183,7 +183,7 @@ const FeaturedProducts = () => {
                                 <img src="photos/IMG_7783.JPG" alt="IMG-PRODUCT" style={imgStyle} />
 
                                 <div className="block2-overlay trans-0-4">
-                                    <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                    <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                         <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
@@ -219,7 +219,7 @@ const FeaturedProducts = () => {
                                 <img src="photos/IMG_7783.JPG" alt="IMG-PRODUCT" style={imgStyle} />
 
                                 <div className="block2-overlay trans-0-4">
-                                    <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                    <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                         <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
@@ -255,7 +255,7 @@ const FeaturedProducts = () => {
                                 <img src="photos/955EF613-F332-4768-BABA-32AC2E08BD48.jpg" alt="IMG-PRODUCT" style={imgStyle} />
 
                                 <div className="block2-overlay trans-0-4">
-                                    <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                    <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                         <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
@@ -291,7 +291,7 @@ const FeaturedProducts = () => {
                                 <img src="photos/955EF613-F332-4768-BABA-32AC2E08BD48.jpg" alt="IMG-PRODUCT" style={imgStyle} />
 
                                 <div className="block2-overlay trans-0-4">
-                                    <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                    <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                         <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>

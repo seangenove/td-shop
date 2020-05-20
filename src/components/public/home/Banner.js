@@ -1,8 +1,5 @@
 import React from 'react';
 
-import ProductCategories from './ProductCategories';
-import InstagramSection from './InstagramSection';
-
 const Banner = () => {
     return (
         <section className="parallax0 parallax100" style={{ backgroundImage: `url(photos/IMG_0694.PNG)` }}>

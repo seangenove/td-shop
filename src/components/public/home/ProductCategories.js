@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ProductCategories = () => {
 
@@ -27,9 +28,9 @@ const ProductCategories = () => {
                         <div className="block1 hov-img-zoom pos-relative m-b-30">
                             <img src="photos/202001133758624425016757419.jpg" alt="IMG-BENNER" style={imgStyleBig} />
                             <div className="block1-wrapbtn w-size2">
-                                <a href="#" className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                    Overalls
-							    </a>
+                                <Link to='/shop' className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                                    OVERALLS
+                                </Link>
                             </div>
                         </div>
 
@@ -37,9 +38,9 @@ const ProductCategories = () => {
                         <div className="block1 hov-img-zoom pos-relative m-b-30">
                             <img src="photos/955EF613-F332-4768-BABA-32AC2E08BD48.jpg" alt="IMG-BENNER" style={imgStyleSmall} />
                             <div className="block1-wrapbtn w-size2">
-                                <a href="#" className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                                <Link to='/shop' className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
                                     SHIRTS
-						        </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -48,18 +49,18 @@ const ProductCategories = () => {
                         <div className="block1 hov-img-zoom pos-relative m-b-30">
                             <img src="photos/IMG_7779.jpg" alt="IMG-BENNER" style={imgStyleSmall} />
                             <div className="block1-wrapbtn w-size2">
-                                <a href="#" className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                                <Link to='/shop' className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
                                     POLOS
-							    </a>
+                                </Link>
                             </div>
                         </div>
 
                         <div className="block1 hov-img-zoom pos-relative m-b-30">
                             <img src="photos/IMG_7521.jpg" alt="IMG-BENNER" style={imgStyleBig} />
                             <div className="block1-wrapbtn w-size2">
-                                <a href="#" className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                    Hoodies
-							    </a>
+                                <Link to='/shop' className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                                    HOODIES
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -69,9 +70,9 @@ const ProductCategories = () => {
                         <div className="block1 hov-img-zoom pos-relative m-b-30">
                             <img src="photos/IMG_7767.JPG" alt="IMG-BENNER" style={imgStyleBig} />
                             <div className="block1-wrapbtn w-size2">
-                                <a href="#" className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                                <Link to='/shop' className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
                                     Velvet Suits
-							    </a>
+                                </Link>
                             </div>
                         </div>
 
@@ -86,9 +87,9 @@ const ProductCategories = () => {
                                     Be the frist to know about the latest fashion news and get exclusive offers
 							    </p>
                                 <div className="w-size2 p-t-25">
-                                    <a href="#" className="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
-                                        Sign Up
-								    </a>
+                                    <Link to='/register' className="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
+                                        OVERALLS
+                                    </Link>
                                 </div>
                             </div>
                         </div>
