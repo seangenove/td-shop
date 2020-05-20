@@ -21,7 +21,7 @@ const DefaultNavBar = () => (
     <div className="container-menu-header">
         <div className="wrap_header">
             <Link to='/' className="logo">
-                <h4>Trggrd - Déclencheur</h4>
+                <h4>Déclencheur</h4>
             </Link>
             <div className="wrap_menu">
                 <nav className="menu">
