@@ -1,8 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
+
+import axios from "axios";
+import Endpoints from "../../config/Endpoints";
+import { setLoggedInUser } from "../../actions/auth";
 
 import '../../styles/sb-admin-pro/css/styles.css'
 
-const Login = () => {
+const Login = ({ setLoggedInUser }) => {
+
+    const [redirect, setRedirect] = useState(null);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const attemptLogin = () => {
+
+        if (!formData.email || !formData.password) {
+            alert('Please provide email address and password.')
+        } else {
+            /**
+             * Get data from endpoint
+             */
+            axios.post(Endpoints.LOGIN, {
+                ...formData,
+                accountId: 1 // temporary
+            })
+                .then(({ data }) => {
+                    setLoggedInUser(data.user);
+                    setRedirect('/');
+                })
+                .catch(error => {
+                    alert("Invalid credentials");
+                });
+
+        };
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        attemptLogin();
+        // alert(JSON.stringify(formData));
+    };
+
+    const onSimpleFormChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    if (redirect) {
+        return <Redirect to='/' />
+    }
+
     return (
         <div>
             <div id="layoutAuthentication">
@@ -17,15 +70,15 @@ const Login = () => {
                                         </div>
                                         <hr className="my-0" />
                                         <div className="card-body px-4 py-4">
-                                            <form>
+                                            <form onSubmit={onSubmit}>
                                                 <div className="form-group">
                                                     <label className="text-gray-600" htmlFor="emailExample">Email address</label>
                                                     <input
                                                         className="form-control form-control-solid py-4"
                                                         type="text"
-                                                        placeholder=""
-                                                        aria-label="Email Address"
-                                                        aria-describedby="emailExample"
+                                                        name="email"
+                                                        value={formData.email}
+                                                        onChange={onSimpleFormChange}
                                                     />
                                                 </div>
                                                 <div className="form-group">
@@ -33,14 +86,24 @@ const Login = () => {
                                                     <input
                                                         className="form-control form-control-solid py-4"
                                                         type="password"
+                                                        name="password"
                                                         placeholder=""
                                                         aria-label="Password"
                                                         aria-describedby="passwordExample"
+                                                        value={formData.password}
+                                                        onChange={onSimpleFormChange}
                                                     />
                                                 </div>
                                                 <div className="form-group d-flex align-items-center justify-content-between mb-0">
                                                     <a className="small" href="#!">Forgot your password?</a>
-                                                    <a className="btn btn-primary" href="#!">Login</a>
+                                                    <a
+                                                        className="btn btn-primary"
+                                                        type="submit"
+                                                        onClick={onSubmit}
+                                                        style={{ color: 'white' }}
+                                                    >
+                                                        Login
+                                                    </a>
                                                 </div>
                                             </form>
                                         </div>
@@ -59,4 +122,8 @@ const Login = () => {
     )
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+    setLoggedInUser: (user) => dispatch(setLoggedInUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(Login);

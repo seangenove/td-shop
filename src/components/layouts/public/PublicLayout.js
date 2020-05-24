@@ -10,28 +10,15 @@ import "slick-carousel/slick/slick-theme.css";
 
 import PublicNavBar from './PublicNavBar';
 import PublicFooter from './PublicFooter';
-import Home from './../../public/home/Home';
-import Shop from './../../public/shop/Shop';
-import Login from './../../auth/Login';
 
-const PublicApp = () => {
+const PublicLayout = ({ children }) => {
     return (
-        <Router>
-            <Helmet>
-                <title>Déclencheur Shop</title>
-            </Helmet>
+        <div>
             <PublicNavBar />
-
-            <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/shop' component={Shop} />
-                <Route exact path='/login' component={Login} />
-            </Switch>
-
+            {children}
             <PublicFooter />
-        </Router>
-
+        </div>
     )
 }
 
-export default PublicApp;
+export default PublicLayout;

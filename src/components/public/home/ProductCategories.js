@@ -19,8 +19,8 @@ const ProductCategories = () => {
     return (
         <section className="banner bgwhite p-t-40 p-b-40">
             <div className="container">
-                <div class="sec-title p-b-44">
-                    <h3 class="m-text5 t-center">Our Products</h3>
+                <div className="sec-title p-b-44">
+                    <h3 className="m-text5 t-center">Our Products</h3>
                 </div>
 
                 <div className="row">
