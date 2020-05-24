@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +13,7 @@ const PrevArrow = ({ style, onClick }) => (
 )
 
 const NextArrow = ({ style, onClick }) => (
-    <button className="arrow-slick1 next-slick1" style={{ ...style }} onClick={onClick} > 
+    <button className="arrow-slick1 next-slick1" style={{ ...style }} onClick={onClick} >
         <FontAwesomeIcon icon={faAngleRight} aria-hidden="true" />
     </button>
 )
@@ -25,8 +26,7 @@ const MainSlider = () => {
         fade: true,
         dots: false,
         infinite: true,
-        autoplay: true,
-        autoplaySpeed: 6000,
+        
         arrows: true,
         prevArrow: <PrevArrow />,
         nextArrow: <NextArrow />
@@ -39,20 +39,19 @@ const MainSlider = () => {
 
                     <div>
                         <div className="item-slick1 item1-slick1" style={{ backgroundImage: `url(photos/0C6F8679-CD1B-4D26-997E-CB0D1CDC5617.jpg)` }}>
-                            <div className="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                                <span className="caption1-slide1 m-text1 t-center m-b-15" >
+                            <div className="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-150">
+                                <span className="caption1-slide1 m-text1 t-center m-b-10" >
                                     Velvet Collection 2020
 						        </span>
 
-                                <h2 className="caption2-slide1 xl-text1 t-center  m-b-37" >
+                                <h2 className="caption2-slide1 xl-text1 t-center  m-b-30" >
                                     New arrivals
 						        </h2>
 
                                 <div className="wrap-btn-slide1 w-size1 " >
-
-                                    <a href="product.html" className="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                                    <Link to='/shop' className="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
                                         Shop Now
-							        </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -61,19 +60,18 @@ const MainSlider = () => {
                     <div>
                         <div className="item-slick1 item2-slick1" style={{ backgroundImage: `url(photos/IMG_4416.jpeg)` }}>
                             <div className="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                                <span className="caption1-slide1 m-text1 t-center m-b-15" >
+                                <span className="caption1-slide1 m-text1 t-center m-b-10" >
                                     Velvet Collection 2020
 						        </span>
 
-                                <h2 className="caption2-slide1 xl-text1 t-center  m-b-37" >
+                                <h2 className="caption2-slide1 xl-text1 t-center  m-b-30" >
                                     New arrivals
 						        </h2>
 
                                 <div className="wrap-btn-slide1 w-size1 " >
-
-                                    <a href="product.html" className="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                                    <Link to='/shop' className="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
                                         Shop Now
-							        </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -82,19 +80,19 @@ const MainSlider = () => {
                     <div>
                         <div className="item-slick1 item3-slick1" style={{ backgroundImage: `url(photos/0C6F8679-CD1B-4D26-997E-CB0D1CDC5617.jpg)` }}>
                             <div className="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                                <span className="caption1-slide1 m-text1 t-center m-b-15" >
+                                <span className="caption1-slide1 m-text1 t-center m-b-10" >
                                     Velvet Collection 2020
 						        </span>
 
-                                <h2 className="caption2-slide1 xl-text1 t-center  m-b-37" >
+                                <h2 className="caption2-slide1 xl-text1 t-center  m-b-30" >
                                     New arrivals
 						        </h2>
 
                                 <div className="wrap-btn-slide1 w-size1 " >
 
-                                    <a href="product.html" className="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+                                    <Link to='/shop' className="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
                                         Shop Now
-							        </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

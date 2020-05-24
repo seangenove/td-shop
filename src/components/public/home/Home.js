@@ -7,6 +7,9 @@ import FeaturedProducts from './FeaturedProducts';
 import InstagramSection from './InstagramSection';
 
 const Home = () => {
+
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+
     return (
         <div>
             <MainSlider />

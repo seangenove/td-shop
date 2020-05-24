@@ -3,6 +3,9 @@ import React from 'react';
 import ProductList from './ProductList';
 
 const Shop = () => {
+    
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+
     return (
         <div>
             <section
