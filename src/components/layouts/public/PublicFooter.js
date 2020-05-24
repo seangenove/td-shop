@@ -24,7 +24,7 @@ const PublicFooter = () => {
                     <h4 className="s-text12 p-b-30">GET IN TOUCH</h4>
 
                     <div>
-                        <p classNclassName="s-text7 w-size27">
+                        <p className="s-text7 w-size27">
                             Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (1) 96 716 6879
 					    </p>
                     </div>
@@ -81,13 +81,13 @@ const PublicFooter = () => {
                 <div className="w-size8 p-t-30 p-l-15 p-r-15 respon3">
                     <h4 className="s-text12 p-b-30">Newsletter</h4>
                     <form onSubmit={(e) => e.preventDefault()}>
-                        <div class="effect1 w-size9">
-                            <input class="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com" />
-                            <span class="effect1-line"></span>
+                        <div className="effect1 w-size9">
+                            <input className="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com" />
+                            <span className="effect1-line"></span>
                         </div>
 
-                        <div class="w-size2 p-t-20">
-                            <button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" onClick={(e) => e.preventDefault()}>
+                        <div className="w-size2 p-t-20">
+                            <button className="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" onClick={(e) => e.preventDefault()}>
                                 Subscribe
 						    </button>
                         </div>

@@ -12,6 +12,7 @@ import PublicNavBar from './PublicNavBar';
 import PublicFooter from './PublicFooter';
 import Home from './../../public/home/Home';
 import Shop from './../../public/shop/Shop';
+import Login from './../../auth/Login';
 
 const PublicApp = () => {
     return (
@@ -24,6 +25,7 @@ const PublicApp = () => {
             <Switch>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/shop' component={Shop} />
+                <Route exact path='/login' component={Login} />
             </Switch>
 
             <PublicFooter />
