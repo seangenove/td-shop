@@ -13,9 +13,10 @@ import PublicLayout from './components/layouts/public/PublicLayout';
 import PublicRoute from './components/routing/PublicRoute';
 import AdminRoute from './components/routing/AdminRoute';
 
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 import Home from './components/public/home/Home';
 import Shop from './components/public/shop/Shop';
-import Login from './components/auth/Login';
 
 axios.defaults.withCredentials = true;
 const store = configureStore();
@@ -27,6 +28,7 @@ function App() {
             <Router>
                 <Switch>
                     <Route exact path='/login' component={Login} />
+                    <Route exact path='/register' component={Register} />
 
                     <PublicRoute exact path='/' component={Home} layout={PublicLayout} />
                     <PublicRoute exact path='/shop' component={Shop} layout={PublicLayout} />

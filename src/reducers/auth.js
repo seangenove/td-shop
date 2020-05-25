@@ -14,7 +14,6 @@ export default (state = {}, action) => {
             const newState = {};
 
             console.log(newState);
-            console.log("end");
             return newState;
         default:
             return state
