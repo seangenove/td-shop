@@ -23,7 +23,7 @@ const ProductList = () => {
                         <div className="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
                             <img src="photos/DXDSHirt_IG_left.jpg" alt="IMG-PRODUCT" style={imgStyle} />
                             <div className="block2-overlay trans-0-4">
-                                <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                     <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                     <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                 </a>
@@ -52,7 +52,7 @@ const ProductList = () => {
                         <div className="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
                             <img src="photos/20200215_184356_328.jpg" alt="IMG-PRODUCT" style={imgStyle} />
                             <div className="block2-overlay trans-0-4">
-                                <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                     <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                     <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                 </a>
@@ -81,7 +81,7 @@ const ProductList = () => {
                         <div className="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
                             <img src="photos/s.png" alt="IMG-PRODUCT" style={imgStyle} />
                             <div className="block2-overlay trans-0-4">
-                                <a href="#" className="block2-btn-addwishlist hov-pointer trans-0-4">
+                                <a href="#!" className="block2-btn-addwishlist hov-pointer trans-0-4">
                                     <i className="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                     <i className="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                 </a>

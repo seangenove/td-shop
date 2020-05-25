@@ -41,19 +41,19 @@ const Categories = () => (
         <h4 className="m-text14 p-b-7">Categories</h4>
         <ul className="p-b-30">
             <li className="p-t-4">
-                <a href="#" className="s-text13 active1">All</a>
+                <a href="#!" className="s-text13 active1">All</a>
             </li>
             <li className="p-t-4">
-                <a href="#" className="s-text13">Shirts</a>
+                <a href="#!" className="s-text13">Shirts</a>
             </li>
             <li className="p-t-4">
-                <a href="#" className="s-text13">Hoodies</a>
+                <a href="#!" className="s-text13">Hoodies</a>
             </li>
             <li className="p-t-4">
-                <a href="#" className="s-text13">Overalls</a>
+                <a href="#!" className="s-text13">Overalls</a>
             </li>
             <li className="p-t-4">
-                <a href="#" className="s-text13">Velvet Suits</a>
+                <a href="#!" className="s-text13">Velvet Suits</a>
             </li>
         </ul>
     </div>

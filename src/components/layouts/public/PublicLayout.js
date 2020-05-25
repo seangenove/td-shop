@@ -1,6 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Helmet } from "react-helmet";
 
 import '../../../styles/fashe/css/bootstrap.min.css'
 import '../../../styles/fashe/css/main.min.css'

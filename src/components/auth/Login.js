@@ -97,6 +97,7 @@ const Login = ({ setLoggedInUser }) => {
                                                 <div className="form-group d-flex align-items-center justify-content-between mb-0">
                                                     <a className="small" href="#!">Forgot your password?</a>
                                                     <a
+                                                        href="#!"
                                                         className="btn btn-primary"
                                                         type="submit"
                                                         onClick={onSubmit}
