@@ -21,6 +21,9 @@ import Shop from './components/public/shop/Shop';
 
 // Business Owner components
 import Dashboard from './components/business-owner/Dashboard';
+import Products from './components/products/Products';
+
+import URLRootPaths from './config/URLRootPaths';
 
 axios.defaults.withCredentials = true;
 const store = configureStore();
@@ -37,7 +40,8 @@ function App() {
                     <PublicRoute exact path='/' component={Home} layout={PublicLayout} />
                     <PublicRoute exact path='/shop' component={Shop} layout={PublicLayout} />
 
-                    <BusinessOwnerRoute exact path='/bo' component={Dashboard} layout={BusinessOwnerLayout} />
+                    <BusinessOwnerRoute exact path={`${URLRootPaths.BUSINESS_OWNER}/`} component={Dashboard} layout={BusinessOwnerLayout} />
+                    <BusinessOwnerRoute exact path={`${URLRootPaths.BUSINESS_OWNER}/products`} component={Products} layout={BusinessOwnerLayout} />
                 </Switch>
             </Router>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Activity, Menu, LogOut } from 'react-feather';
+import { Activity, Menu, LogOut, ShoppingBag } from 'react-feather';
 
 import '../../../styles/sb-admin-pro/css/styles.css';
 
@@ -64,10 +64,14 @@ const BusinessOwnerSidebar = ({ loggedInUser }) => {
                 <div className="sidenav-menu">
                     <div className="nav accordion" id="accordionSidenav">
                         <div className="sidenav-menu-heading">Management</div>
-
                         <Link to={`${URLRootPaths.BUSINESS_OWNER}`} className={'nav-link'}>
                             <div className="nav-link-icon"><Activity /></div>
                             Dashboard
+                        </Link>
+
+                        <Link to={`${URLRootPaths.BUSINESS_OWNER}/products`} className={'nav-link'}>
+                            <div className="nav-link-icon"><ShoppingBag /></div>
+                            Products
                         </Link>
                     </div>
                 </div>
