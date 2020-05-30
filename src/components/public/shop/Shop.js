@@ -22,7 +22,7 @@ const Shop = () => {
                             <div className="leftbar p-r-20 p-r-0-sm">
 
                                 <Categories />
-                                <Filters />
+                                {/* <Filters />*/}
 
                             </div>
                         </div>

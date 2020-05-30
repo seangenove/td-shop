@@ -6,6 +6,8 @@ import axios from "axios";
 import Endpoints from "../../config/Endpoints";
 import { setLoggedInUser } from "../../actions/auth";
 
+import { login } from './../../services/AuthServices'
+
 import '../../styles/sb-admin-pro/css/styles.css'
 
 const Login = ({ setLoggedInUser }) => {
@@ -21,21 +23,13 @@ const Login = ({ setLoggedInUser }) => {
         if (!formData.email || !formData.password) {
             alert('Please provide email address and password.')
         } else {
-            /**
-             * Get data from endpoint
-             */
-            axios.post(Endpoints.LOGIN, {
-                ...formData,
-                accountId: 1 // temporary
-            })
-                .then(({ data }) => {
-                    setLoggedInUser(data.user);
-                    setRedirect('/');
-                })
-                .catch(error => {
-                    alert("Invalid credentials");
-                });
-
+            
+            login(formData, ({ user }) => {
+                setLoggedInUser(user);
+                setRedirect('/');
+            }, (error) => {
+                alert("Invalid credentials");
+            });
         };
     }
 

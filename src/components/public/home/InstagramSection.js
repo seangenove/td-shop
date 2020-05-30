@@ -11,7 +11,7 @@ const InstagramSection = () => {
 
     return (
         <section className="instagram p-t-20">
-            <div className="sec-title p-b-54 p-l-15 p-r-15">
+            <div className="sec-title p-t-5 p-b-5 p-l-15 p-r-15">
                 <h3 className="m-text5 t-center">
                     Follow us on Instagram
 			    </h3>
