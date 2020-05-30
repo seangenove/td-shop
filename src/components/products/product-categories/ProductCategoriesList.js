@@ -1,6 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { fetchProductCategories } from './../../../services/ProductsServices'
 
 const ProductCategoriesList = () => {
+
+    const [categories, setCategories] = useState([]);
+
+    const getCategories = () => {
+        fetchProductCategories(({ product_categories }) => {
+            setCategories(product_categories);
+        }, (error) => {
+            alert('Error in fetching requests');
+            console.log(error);
+        })
+    }
+
+    useEffect(() => {
+        getCategories();
+    }, [])
+
     return (
         <div>
             <div className="card mb-2">
@@ -9,38 +27,30 @@ const ProductCategoriesList = () => {
                     <div className="h5"><span className="badge badge-primary font-weight-normal">2 categories</span></div>
                 </div>
                 <hr className="mb-0" />
-                <div className="list-group list-group-flush">
-                    <a className="list-group-item list-group-item-action py-4" href="#!">
-                        <div className="d-flex justify-content-between">
-                            <div className="mr-4 d-flex">
-                                <div className="icon-stack icon-stack bg-green-soft text-green flex-shrink-0 mr-4"><i data-feather="check"></i></div>
-                                <div>
-                                    <h6>Shirts</h6>
-                                    <p className="card-text">Thank you for using our service. This case is now being marked as closed. If you would like to reopen this case, please reply to this message.</p>
-                                </div>
-                            </div>
-                            <div className="small flex-shrink-0 text-right">
-                                6 products <br />
-                                <div className="badge badge-green-soft badge-pill text-green">Enabled</div><br />
-                            </div>
+                {categories.length === 0 ? (
+                    <p>wala</p>
+                ) : (
+                        <div className="list-group list-group-flush">
+                            {categories.map((category, index) => (
+                                <a className="list-group-item list-group-item-action py-4" href="#!" key={index}>
+                                    <div className="d-flex justify-content-between">
+                                        <div className="mr-4 d-flex">
+                                            <div className="icon-stack icon-stack bg-green-soft text-green flex-shrink-0 mr-4"><i data-feather="check"></i></div>
+                                            <div>
+                                                <h6>{category.name}</h6>
+                                                <p className="card-text">{category.description}</p>
+                                            </div>
+                                        </div>
+                                        <div className="small flex-shrink-0 text-right">
+                                            6 products <br />
+                                            <div className="badge badge-green-soft badge-pill text-green">Featured</div><br />
+                                        </div>
+                                    </div>
+                                </a>
+                            ))}
                         </div>
-                    </a>
-                    <a className="list-group-item list-group-item-action py-4" href="#!">
-                        <div className="d-flex justify-content-between">
-                            <div className="mr-4 d-flex">
-                                <div className="icon-stack icon-stack bg-red-soft text-red flex-shrink-0 mr-4"><i data-feather="x"></i></div>
-                                <div>
-                                    <h6>Hoodies</h6>
-                                    <p className="card-text">Your request has been declined. Thank you for using our service. This case is now being marked as closed. If you would like to reopen this case, please reply to this message.</p>
-                                </div>
-                            </div>
-                            <div className="small flex-shrink-0 text-right">
-                                2 products <br />
-                                <div className="badge badge-green-soft badge-pill text-green">Disabled</div><br />
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                    )
+                }
             </div>
         </div>
     )
