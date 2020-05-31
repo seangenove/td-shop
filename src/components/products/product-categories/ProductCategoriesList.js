@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
-import Ingredients from './../../ingredients/index';
+import { Link } from 'react-router-dom';
 
 import { fetchProductCategories } from './../../../services/ProductsServices';
+
+import Ingredients from './../../ingredients/index';
 
 const ProductCategoriesList = () => {
 
@@ -31,11 +32,21 @@ const ProductCategoriesList = () => {
                 <div>
                     <div className="d-flex align-items-center justify-content-between flex-column flex-md-row mb-0 mt-4 px-4">
                         <h2>Product Categories</h2>
-                        <div className="h5"><span className="badge badge-primary font-weight-normal">2 categories</span></div>
+                        <div className="h5">
+                            <span className={`badge ${categories.length ? 'badge-primary' : 'badge-warning'} font-weight-normal`}>{categories.length} categories</span>
+                        </div>
                     </div>
                     <hr className="mb-0" />
                     {categories.length === 0 ? (
-                        <p>wala</p>
+                        <div className="card-body text-center py-5">
+                            <h4 className="mb-3">Looks like there are no product categories.</h4>
+                            <Link
+                                to='/bo/products/add-category'
+                                className='btn btn-primary btn-marketing rounded-pill'
+                            >
+                                Add Product Category
+                            </Link>
+                        </div>
                     ) : (
                             <div className="list-group list-group-flush">
                                 {categories.map((category, index) => (

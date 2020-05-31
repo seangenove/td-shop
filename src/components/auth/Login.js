@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
-import axios from "axios";
-import Endpoints from "../../config/Endpoints";
 import { setLoggedInUser } from "../../actions/auth";
 
 import { login } from './../../services/AuthServices'
