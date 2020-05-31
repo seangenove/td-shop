@@ -6,22 +6,17 @@ const BusinessOwnerRoute = ({ component: Component, layout: Layout, loggedInUser
     <Route
         {...rest}
         render={props => {
-            // if (!loggedInUser) {
-            //     return <Redirect to='/login' />
-            // } else if (loggedInUser.role !== 'admin' || loggedInUser.role !== 'business_owner') {
-            //     return <Redirect to='/' />
-            // } else {
-            //     return (
-            //         <Layout>
-            //             <Component {...props} />
-            //         </Layout>
-            //     )
-            // }
-            return (
-                <Layout>
-                    <Component {...props} />
-                </Layout>
-            )
+            if (!loggedInUser) {
+                return <Redirect to='/login' />
+            } else if (loggedInUser.role === 'customer' && (loggedInUser.role !== 'admin' || loggedInUser.role !== 'business_owner') ) {
+                return <Redirect to='/' />
+            } else {
+                return (
+                    <Layout>
+                        <Component {...props} />
+                    </Layout>
+                )
+            }
         }}
     />
 )

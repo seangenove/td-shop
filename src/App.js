@@ -41,7 +41,7 @@ function App() {
                     <PublicRoute exact path='/shop' component={Shop} layout={PublicLayout} />
 
                     <BusinessOwnerRoute exact path={`${URLRootPaths.BUSINESS_OWNER}/`} component={Dashboard} layout={BusinessOwnerLayout} />
-                    <BusinessOwnerRoute exact path={`${URLRootPaths.BUSINESS_OWNER}/products`} component={Products} layout={BusinessOwnerLayout} />
+                    <BusinessOwnerRoute path={`${URLRootPaths.BUSINESS_OWNER}/products`} component={Products} layout={BusinessOwnerLayout} />
                 </Switch>
             </Router>
 
