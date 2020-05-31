@@ -50,7 +50,11 @@ const ProductCategoriesList = () => {
                     ) : (
                             <div className="list-group list-group-flush">
                                 {categories.map((category, index) => (
-                                    <a className="list-group-item list-group-item-action py-4" href="#!" key={index}>
+                                    <Link
+                                        to={`/bo/products/edit-category/${category.id}`}
+                                        className="list-group-item list-group-item-action py-4"
+                                        key={index}
+                                    >
                                         <div className="d-flex justify-content-between">
                                             <div className="mr-4 d-flex">
                                                 <div className="icon-stack icon-stack bg-green-soft text-green flex-shrink-0 mr-4"><i data-feather="check"></i></div>
@@ -64,7 +68,7 @@ const ProductCategoriesList = () => {
                                                 <div className="badge badge-green-soft badge-pill text-green">Featured</div><br />
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         )

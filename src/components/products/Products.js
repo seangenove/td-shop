@@ -18,8 +18,9 @@ const Products = ({ match }) => {
                     <SidePanel baseURL={baseURL}/>
 
                     <div className="col-lg-8 col-xl-9">
-                        <Route exact path={`${match.path}/add-category`} component={ProductCategoryForm} />
-                        <Route exact path={match.path} component={ProductCategoriesList} />
+                        <Route exact path={`${baseURL}/add-category`} component={ProductCategoryForm} />
+                        <Route exact path={`${baseURL}/edit-category/:id`} component={ProductCategoryForm} />
+                        <Route exact path={baseURL} component={ProductCategoriesList} />
                     </div>
                 </div>
             </div>

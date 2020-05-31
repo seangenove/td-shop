@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 
-import { upsertProductCategory } from './../../../services/ProductsServices'
+import { fetchProductCategoryById, upsertProductCategory } from './../../../services/ProductsServices'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
-const ProductCategoriesList = () => {
+import Ingredients from './../../ingredients/index';
 
+const ProductCategoryForm = ({ match }) => {
+
+    const id = match.params.id;
+
+    const [redirect, setRedirect] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         description: ''
@@ -32,59 +39,86 @@ const ProductCategoriesList = () => {
                 alert('Successfully added category!')
                 console.log('New product category', product_category)
 
-                setFormData({
-                    name: '',
-                    description: ''
-                })
+                setRedirect('/bo/products');
             }, (error) => {
-                alert('Error');
+                alert('Problem in saving product category');
                 console.log(error);
             });
         }
     }
 
+    useEffect(() => {
+        if (id) {
+            setLoading(true);
+
+            fetchProductCategoryById(id, ({ product_category }) => {
+                setFormData({
+                    id: product_category.id,
+                    name: product_category.name,
+                    description: product_category.description
+                });
+
+                setLoading(false);
+            }, (error) => {
+                console.log(error);
+                setRedirect('/bo/products');
+            })
+        }
+    }, []);
+
+    if (redirect) {
+        return  <Redirect to={redirect} />
+    }
+
     return (
         <div className="card mb-4">
-            <div className="d-flex align-items-center justify-content-between flex-column flex-md-row mt-4 px-4">
-                <h2 className="mb-0 mt-2">Add Product Category</h2>
+            {loading ? <Ingredients.Loading /> : (
+                <div>
 
-                <button className="btn btn-primary rounded-pill px-4 mr-2 my-1" onClick={(e) => onSubmit(e)}>
-                    <FontAwesomeIcon icon={faUpload} className="mr-2" /> Save
-                </button>
+                    <div className="d-flex align-items-center justify-content-between flex-column flex-md-row mt-4 px-4">
+                        <h2 className="mb-0 mt-2">
+                            {id ? 'Edit' : 'Add'} Product Category
+                    </h2>
 
-            </div>
-            <hr className="mb-0" />
-            <div className="card-body">
-                <form onSubmit={(e) => onSubmit(e)}>
-                    <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input
-                            className="form-control form-control-solid"
-                            type="text"
-                            placeholder="Enter Category Name"
-                            name="name"
-                            maxLength="50"
-                            value={formData.name}
-                            onChange={(e) => onSimpleFormChange(e)}
-                        />
+                        <button className="btn btn-primary rounded-pill px-4 mr-2 my-1" onClick={(e) => onSubmit(e)}>
+                            <FontAwesomeIcon icon={faUpload} className="mr-2" /> Save
+                    </button>
+
                     </div>
+                    <hr className="mb-0" />
+                    <div className="card-body">
+                        <form onSubmit={(e) => onSubmit(e)}>
+                            <div className="form-group">
+                                <label htmlFor="name">Name</label>
+                                <input
+                                    className="form-control form-control-solid"
+                                    type="text"
+                                    placeholder="Enter Category Name"
+                                    name="name"
+                                    maxLength="50"
+                                    value={formData.name}
+                                    onChange={(e) => onSimpleFormChange(e)}
+                                />
+                            </div>
 
-                    <div className="form-group">
-                        <label htmlFor="exampleFormControlTextarea1">Description</label>
-                        <textarea
-                            className="form-control form-control-solid"
-                            name="description"
-                            rows="3"
-                            placeholder="Enter description"
-                            maxLength="250"
-                            value={formData.description}
-                            onChange={(e) => onSimpleFormChange(e)}
-                        />
+                            <div className="form-group">
+                                <label htmlFor="exampleFormControlTextarea1">Description</label>
+                                <textarea
+                                    className="form-control form-control-solid"
+                                    name="description"
+                                    rows="3"
+                                    placeholder="Enter description"
+                                    maxLength="250"
+                                    value={formData.description}
+                                    onChange={(e) => onSimpleFormChange(e)}
+                                />
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
+                </div>
+            )}
         </div>
     )
 };
 
-export default ProductCategoriesList;
+export default ProductCategoryForm;
