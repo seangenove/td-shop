@@ -69,7 +69,7 @@ const BusinessOwnerSidebar = ({ loggedInUser }) => {
                             Dashboard
                         </Link>
 
-                        <Link to={`${URLRootPaths.BUSINESS_OWNER}/products`} className={'nav-link'}>
+                        <Link to={`${URLRootPaths.BUSINESS_OWNER}/products/categories`} className={'nav-link'}>
                             <div className="nav-link-icon"><ShoppingBag /></div>
                             Products
                         </Link>

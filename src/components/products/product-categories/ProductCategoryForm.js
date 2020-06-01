@@ -16,7 +16,7 @@ const ProductCategoryForm = ({ match }) => {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
-        description: ''
+        is_featured: false
     });
 
     const onSimpleFormChange = (e) => {
@@ -31,15 +31,14 @@ const ProductCategoryForm = ({ match }) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        if (!formData.name || !formData.description) {
-            alert('Please provide product name and description.');
+        if (!formData.name) {
+            alert('Please provide product name.');
         } else {
 
             upsertProductCategory(formData, ({ product_category }) => {
-                alert('Successfully added category!')
-                console.log('New product category', product_category)
+                alert(`Successfully ${id ? 'updated' : 'added'} category!`)
 
-                setRedirect('/bo/products');
+                setRedirect('/bo/products/categories');
             }, (error) => {
                 alert('Problem in saving product category');
                 console.log(error);
@@ -53,21 +52,21 @@ const ProductCategoryForm = ({ match }) => {
 
             fetchProductCategoryById(id, ({ product_category }) => {
                 setFormData({
+                    ...formData,
                     id: product_category.id,
                     name: product_category.name,
-                    description: product_category.description
+                    is_featured: product_category.is_featured
                 });
-
                 setLoading(false);
             }, (error) => {
                 console.log(error);
-                setRedirect('/bo/products');
+                setRedirect('/bo/products/categories');
             })
         }
     }, []);
 
     if (redirect) {
-        return  <Redirect to={redirect} />
+        return <Redirect to={redirect} />
     }
 
     return (
@@ -75,15 +74,10 @@ const ProductCategoryForm = ({ match }) => {
             {loading ? <Ingredients.Loading /> : (
                 <div>
 
-                    <div className="d-flex align-items-center justify-content-between flex-column flex-md-row mt-4 px-4">
+                    <div className="d-flex align-items-center justify-content-center flex-column flex-md-row my-4 px-4">
                         <h2 className="mb-0 mt-2">
                             {id ? 'Edit' : 'Add'} Product Category
-                    </h2>
-
-                        <button className="btn btn-primary rounded-pill px-4 mr-2 my-1" onClick={(e) => onSubmit(e)}>
-                            <FontAwesomeIcon icon={faUpload} className="mr-2" /> Save
-                    </button>
-
+                        </h2>
                     </div>
                     <hr className="mb-0" />
                     <div className="card-body">
@@ -101,17 +95,25 @@ const ProductCategoryForm = ({ match }) => {
                                 />
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="exampleFormControlTextarea1">Description</label>
-                                <textarea
-                                    className="form-control form-control-solid"
-                                    name="description"
-                                    rows="3"
-                                    placeholder="Enter description"
-                                    maxLength="250"
-                                    value={formData.description}
-                                    onChange={(e) => onSimpleFormChange(e)}
-                                />
+                            <div className="d-flex justify-content-between">
+                                <div className="custom-control custom-checkbox custom-control-solid">
+                                    <input
+                                        className="custom-control-input"
+                                        id="test"
+                                        type="checkbox"
+                                        name="is_featured"
+                                        checked={formData.is_featured}
+                                        onChange={() => setFormData({
+                                            ...formData,
+                                            is_featured: !formData.is_featured
+                                        })}
+                                    />
+                                    <label className="custom-control-label" htmlFor="test">Featured</label>
+                                </div>
+
+                                <button className="btn btn-primary rounded-pill px-4 mr-2 my-1" onClick={(e) => onSubmit(e)}>
+                                    <FontAwesomeIcon icon={faUpload} className="mr-2" /> Save
+                                </button>
                             </div>
                         </form>
                     </div>
