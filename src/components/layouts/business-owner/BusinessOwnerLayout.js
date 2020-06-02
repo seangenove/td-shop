@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Activity, Menu, LogOut, ShoppingBag } from 'react-feather';
@@ -7,7 +8,9 @@ import '../../../styles/sb-admin-pro/css/styles.css';
 
 import URLRootPaths from './../../../config/URLRootPaths';
 
-const BusinessOwnerLayout = ({ children, loggedInUser }) => {
+import { logoutUser } from './../../../actions/auth';
+
+const BusinessOwnerLayout = ({ children, loggedInUser, logoutUser }) => {
 
     const toggleShowSidebar = () => {
         document.getElementById('mainBody').classList.toggle('sidenav-toggled');
@@ -16,7 +19,7 @@ const BusinessOwnerLayout = ({ children, loggedInUser }) => {
     return (
         <div>
             <div className="nav-fixed" id="mainBody">
-                <BusinessOwnerNavbar toggleShowSidebar={toggleShowSidebar} />
+                <BusinessOwnerNavbar toggleShowSidebar={toggleShowSidebar} logoutUser={logoutUser} />
 
                 <div id="layoutSidenav">
                     <BusinessOwnerSidebar loggedInUser={loggedInUser} />
@@ -32,7 +35,8 @@ const BusinessOwnerLayout = ({ children, loggedInUser }) => {
     )
 }
 
-const BusinessOwnerNavbar = ({ toggleShowSidebar }) => {
+const BusinessOwnerNavbar = ({ toggleShowSidebar, logoutUser }) => {
+
     return (
         <nav className="topnav navbar navbar-expand shadow navbar-light bg-white" id="sidenavAccordion">
             <a className="navbar-brand px-2" href="index.html">Déclencheur Shop</a>
@@ -49,7 +53,11 @@ const BusinessOwnerNavbar = ({ toggleShowSidebar }) => {
                     aria-label="Search" />
             </form>
             <ul className="navbar-nav align-items-center ml-auto">
-                <a className="dropdown-item" href="/logout">
+                <a
+                    className="dropdown-item"
+                    href="#!"
+                    onClick={() => logoutUser()}
+                >
                     Logout <LogOut />
                 </a>
             </ul>
@@ -89,6 +97,10 @@ const BusinessOwnerSidebar = ({ loggedInUser }) => {
 
 const mapStateToProps = state => ({
     loggedInUser: state.loggedInUser
+});
+
+const mapDispatchToProps = dispatch => ({
+    logoutUser: () => dispatch(logoutUser())
 })
 
-export default connect(mapStateToProps)(BusinessOwnerLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(BusinessOwnerLayout);

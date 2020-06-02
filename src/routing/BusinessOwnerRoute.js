@@ -6,7 +6,7 @@ const BusinessOwnerRoute = ({ component: Component, layout: Layout, loggedInUser
     <Route
         {...rest}
         render={props => {
-            if (!loggedInUser) {
+            if (!loggedInUser.role) {
                 return <Redirect to='/login' />
             } else if (loggedInUser.role === 'customer' && (loggedInUser.role !== 'admin' || loggedInUser.role !== 'business_owner') ) {
                 return <Redirect to='/' />

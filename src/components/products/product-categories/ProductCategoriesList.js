@@ -64,8 +64,8 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                     ) : (
                             <div className="list-group list-group-flush">
                                 {categories.map((category, index) => (
-                                    <div>
-                                        <div className="list-group-item list-group-item-action pb-3" key={index}>
+                                    <div key={index}>
+                                        <div className="list-group-item list-group-item-action pb-3">
                                             <div className="d-flex justify-content-between">
                                                 <div className="mr-4 d-flex">
                                                     <div>
