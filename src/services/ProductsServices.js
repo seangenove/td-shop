@@ -5,6 +5,10 @@ export const fetchProductCategories = (onSuccess, onFailure) => {
     AppApiRequest(Endpoints.PRODUCT_CATEGORIES, 'GET', onSuccess, onFailure);
 };
 
+export const fetchParentProductCategories = (onSuccess, onFailure) => {
+    AppApiRequest(Endpoints.PARENT_PRODUCT_CATEGORIES, 'GET', onSuccess, onFailure);
+};
+
 export const fetchProductCategoryById = (id, onSuccess, onFailure) => {
     AppApiRequest(`${Endpoints.PRODUCT_CATEGORIES}/${id}`, 'GET', onSuccess, onFailure);
 };

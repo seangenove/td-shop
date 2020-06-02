@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { fetchProductCategoryById, upsertProductCategory } from './../../../services/ProductsServices'
+import {
+    fetchParentProductCategories,
+    fetchProductCategoryById,
+    upsertProductCategory
+} from './../../../services/ProductsServices'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -14,18 +18,27 @@ const ProductCategoryForm = ({ match }) => {
 
     const [redirect, setRedirect] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [parentCategories, setParentCategories] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
-        is_featured: false
+        is_featured: false,
+        parent_id: null
     });
 
     const onSimpleFormChange = (e) => {
         e.preventDefault();
 
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        if (e.target.name === 'parent_id') {
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value === "None" ? null : parseInt(e.target.value)
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value
+            });
+        }
     }
 
     const onSubmit = (e) => {
@@ -47,22 +60,37 @@ const ProductCategoryForm = ({ match }) => {
     }
 
     useEffect(() => {
-        if (id) {
-            setLoading(true);
+        setLoading(true);
 
-            fetchProductCategoryById(id, ({ product_category }) => {
-                setFormData({
-                    ...formData,
-                    id: product_category.id,
-                    name: product_category.name,
-                    is_featured: product_category.is_featured
-                });
+        fetchParentProductCategories(({ product_categories }) => {
+            console.log(product_categories);
+            setParentCategories(product_categories);
+
+            if (id) {
+                setLoading(true);
+
+                fetchProductCategoryById(id, ({ product_category }) => {
+                    setFormData({
+                        ...formData,
+                        id: product_category.id,
+                        name: product_category.name,
+                        is_featured: product_category.is_featured,
+                        parent_id: product_category.parent_id
+                    });
+
+                    setLoading(false);
+                }, (error) => {
+                    console.log(error);
+                    setRedirect('/bo/products/categories');
+                })
+            } else {
                 setLoading(false);
-            }, (error) => {
-                console.log(error);
-                setRedirect('/bo/products/categories');
-            })
-        }
+            }
+        }, (error) => {
+            alert('Error in fetching requests');
+            console.log(error);
+        });
+
     }, []);
 
     if (redirect) {
@@ -82,6 +110,24 @@ const ProductCategoryForm = ({ match }) => {
                     <hr className="mb-0" />
                     <div className="card-body">
                         <form onSubmit={(e) => onSubmit(e)}>
+                            <div className="form-group">
+                                <label htmlFor="name">Parent Category</label>
+                                <select
+                                    name="parent_id"
+                                    className='form-control'
+                                    required
+                                    value={formData.parent_id === null ? 'None' : formData.parent_id}
+                                    onChange={(e) => onSimpleFormChange(e)}
+                                >
+                                    <option value={null}>None</option>
+                                    {parentCategories && parentCategories.map((parentCategory) => (
+                                        <option value={parentCategory.id} key={parentCategory.id}>
+                                            {parentCategory.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
                                 <input
