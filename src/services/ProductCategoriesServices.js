@@ -16,3 +16,11 @@ export const fetchProductCategoryById = (id, onSuccess, onFailure) => {
 export const upsertProductCategory = (data, onSuccess, onFailure) => {
     AppApiRequest(Endpoints.UPSERT_PRODUCT_CATEGORY, 'POST', onSuccess, onFailure, data);
 };
+
+export const deleteProductCategory = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.DELETE_PRODUCT_CATEGORY}/${id}`, 'GET', onSuccess, onFailure);
+};
+
+export const toggleIsDisabledProductCategory = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.TOGGLE_IS_DISABLED_PRODUCT_CATEGORY}/${id}`, 'GET', onSuccess, onFailure);
+};

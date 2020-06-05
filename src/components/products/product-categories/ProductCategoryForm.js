@@ -5,7 +5,7 @@ import {
     fetchParentProductCategories,
     fetchProductCategoryById,
     upsertProductCategory
-} from './../../../services/ProductsServices'
+} from './../../../services/ProductCategoriesServices'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';

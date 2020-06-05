@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { fetchProductCategories } from './../../../services/ProductsServices';
-
 import Ingredients from './../../ingredients/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+
+import {
+    fetchProductCategories,
+    deleteProductCategory,
+    toggleIsDisabledProductCategory
+} from './../../../services/ProductCategoriesServices';
 
 const ProductCategoriesList = ({ productsBaseURL }) => {
 
@@ -23,7 +27,21 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
             alert('Error in fetching requests');
             console.log(error);
         })
-    }
+    };
+
+    const onDelete = (category) => {
+        const confirmation = window.confirm(`Are you sre you want to delete the category ${category.name}? ${category.parent_id && 'Doing so will also delete all of its subcategories.'}`);
+
+        if (confirmation) {
+            deleteProductCategory(category.id, ({ product_category }) => {
+                alert('Successfully deleted category!');
+
+                getCategories();
+            }, (error) => {
+                console.log(error);
+            });
+        }
+    };
 
     useEffect(() => {
         getCategories();
@@ -83,15 +101,18 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                             to={`/bo/products/categories/add-product?pid=${category.id}`}
                                                             className="btn btn-light btn-sm mr-2">
                                                             <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Product
-                                                    </Link>
+                                                        </Link>
                                                         <Link
                                                             to={`/bo/products/categories/edit/${category.id}`}
                                                             className="btn btn-light btn-sm mr-2">
                                                             <FontAwesomeIcon icon={faEdit} className="mr-2" /> Edit
-                                                    </Link>
-                                                        <button className="btn btn-light btn-sm mr-2">
+                                                        </Link>
+                                                        <button
+                                                            className="btn btn-light btn-sm mr-2"
+                                                            onClick={() => onDelete(category)}
+                                                        >
                                                             <FontAwesomeIcon icon={faTrash} className="mr-2" /> Delete
-                                                    </button>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,7 +143,10 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                                 className="btn btn-light btn-sm mr-2">
                                                                 <FontAwesomeIcon icon={faEdit} className="mr-2" /> Edit
                                                     </Link>
-                                                            <button className="btn btn-light btn-sm mr-2">
+                                                            <button
+                                                                className="btn btn-light btn-sm mr-2"
+                                                                onClick={() => onDelete(childCategory)}
+                                                            >
                                                                 <FontAwesomeIcon icon={faTrash} className="mr-2" /> Delete
                                                     </button>
                                                         </div>

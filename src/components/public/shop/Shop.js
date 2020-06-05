@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ProductList from './ProductList';
 
+import { fetchProductCategories } from './../../../services/ProductCategoriesServices';
+
 const Shop = () => {
-    
+
     window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
 
     return (
         <div>
             <section
                 className="bg-title-page p-t-50 p-b-40 flex-col-c-m"
-                style={{ backgroundImage: `url('https://cdn.shopify.com/s/files/1/2672/5778/t/6/assets/collection_top.jpg?v=8714313585269873512')`, minHeight: '150px' }}
+                style={{
+                    backgroundImage: `url('https://cdn.shopify.com/s/files/1/2672/5778/t/6/assets/collection_top.jpg?v=8714313585269873512')`,
+                    minHeight: '150px'
+                }}
             >
                 <h2 className="l-text2 t-center">PRODUCTS</h2>
             </section>
@@ -28,7 +33,7 @@ const Shop = () => {
                         </div>
 
                         <ProductList />
-                        
+
                     </div>
                 </div>
             </section>
@@ -36,28 +41,48 @@ const Shop = () => {
     )
 };
 
-const Categories = () => (
-    <div>
-        <h4 className="m-text14 p-b-7">Categories</h4>
-        <ul className="p-b-30">
-            <li className="p-t-4">
-                <a href="#!" className="s-text13 active1">All</a>
-            </li>
-            <li className="p-t-4">
-                <a href="#!" className="s-text13">Shirts</a>
-            </li>
-            <li className="p-t-4">
-                <a href="#!" className="s-text13">Hoodies</a>
-            </li>
-            <li className="p-t-4">
-                <a href="#!" className="s-text13">Overalls</a>
-            </li>
-            <li className="p-t-4">
-                <a href="#!" className="s-text13">Velvet Suits</a>
-            </li>
-        </ul>
-    </div>
-);
+const Categories = () => {
+
+    const [categories, setCategories] = useState([]);
+
+    const getCategories = () => {
+        fetchProductCategories(({ product_categories }) => {
+            setCategories(product_categories);
+
+        }, (error) => {
+            console.log(error);
+        });
+    };
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
+    return (
+        <div>
+            <h4 className="m-text14 p-b-7">Categories</h4>
+            <ul className="p-b-30">
+                <li className="p-t-4">
+                    <a href="#!" className="s-text13 active1">All</a>
+                </li>
+
+                {categories.length !== 0 && categories.map((category) => (
+                    <div key={category.id}>
+                        <li className="p-t-4" >
+                            <a href="#!" className="s-text13">{category.name}</a>
+                        </li>
+
+                        {category.children && category.children.map((childCategory) => (
+                            <li className="p-t-4 p-l-14" >
+                                <a href="#!" className="s-text13">{childCategory.name}</a>
+                            </li>
+                        ))}
+                    </div>
+                ))}
+            </ul>
+        </div>
+    )
+};
 
 const Filters = () => (
     <div>
