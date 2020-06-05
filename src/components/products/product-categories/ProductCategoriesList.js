@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 
 import Ingredients from './../../ingredients/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faArchive } from '@fortawesome/free-solid-svg-icons';
 
 import {
     fetchProductCategories,
     deleteProductCategory,
-    toggleIsDisabledProductCategory
+    toggleIsFeaturedProductCategory,
+    toggleIsArchivedProductCategory,
 } from './../../../services/ProductCategoriesServices';
 
 const ProductCategoriesList = ({ productsBaseURL }) => {
@@ -30,11 +31,39 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
     };
 
     const onDelete = (category) => {
-        const confirmation = window.confirm(`Are you sre you want to delete the category ${category.name}? ${category.parent_id && 'Doing so will also delete all of its subcategories.'}`);
+        const confirmation = window.confirm(`Are you sure you want to delete the ${category.name} category ? ${!category.parent_id ? 'Doing so will also delete all of its subcategories.' : ''}`);
 
         if (confirmation) {
             deleteProductCategory(category.id, ({ product_category }) => {
                 alert('Successfully deleted category!');
+
+                getCategories();
+            }, (error) => {
+                console.log(error);
+            });
+        }
+    };
+
+    const onToggleFeatured = (category) => {
+        const confirmation = window.confirm(`Are you sre you want to ${category.is_featured ? 'unfeature' : 'feature'} the ${category.name} category?`);
+
+        if (confirmation) {
+            toggleIsFeaturedProductCategory(category.id, ({ product_category }) => {
+                alert(`Successfully ${category.is_featured ? 'unfeatured' : 'featured'} ${category.name} category!`);
+
+                getCategories();
+            }, (error) => {
+                console.log(error);
+            });
+        }
+    };
+
+    const onToggleArchived = (category) => {
+        const confirmation = window.confirm(`Are you sure you want to ${category.is_archived ? 'retrieve from archive' : 'archive'} the ${category.name} category?`);
+
+        if (confirmation) {
+            toggleIsArchivedProductCategory(category.id, ({ product_category }) => {
+                alert(`Successfully ${category.is_archived ? 'retreived' : 'archived'} the ${category.name} category!`);
 
                 getCategories();
             }, (error) => {
@@ -63,7 +92,7 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                 <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Category
                             </Link>
                             <form className="form-inline mr-auto">
-                                <input className="form-control form-control-solid mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                                <input className="form-control form-control-solid form-control-sm mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
                             </form>
                         </div>
 
@@ -85,33 +114,50 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                     <div key={index}>
                                         <div className="list-group-item list-group-item-action pb-3">
                                             <div className="d-flex justify-content-between">
-                                                <div className="mr-4 d-flex">
+                                                <div className="d-flex">
                                                     <div>
                                                         <h6 className="mb-0">{category.name}</h6>
                                                         <div className="mb-2">
-                                                            <div className={`badge badge-${category.is_featured ? 'green' : 'red'}-soft badge-pill text-${category.is_featured ? 'green' : 'red'} mr-1`}>
+                                                            <a
+                                                                className={`badge badge-${category.is_featured ? 'success-soft' : 'light'} badge-pill ${category.is_featured ? 'text-success' : ''} mr-1`}
+                                                                onClick={() => onToggleFeatured(category)}
+                                                                style={{ cursor: 'pointer' }}
+                                                            >
                                                                 {category.is_featured ? 'Featured' : 'Not Featured'}
-                                                            </div>
+                                                            </a>
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="small flex-shrink-0 text-right">
-                                                    <div className='pt-3'>
+                                                <div className="small text-gray-400 flex-shrink-0 text-right">
+                                                    {category.is_archived && (<div className='font-italic'>Archived <br /></div>)}
+
+                                                    <div className='pt-2 btn-group'>
                                                         <Link
                                                             to={`/bo/products/categories/add-product?pid=${category.id}`}
-                                                            className="btn btn-light btn-sm mr-2">
-                                                            <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Product
+                                                            className="btn btn-light btn-sm mr-1">
+                                                            <FontAwesomeIcon icon={faPlus} />
+                                                            <div className='d-none d-md-block ml-2'>Add Product</div>
                                                         </Link>
                                                         <Link
                                                             to={`/bo/products/categories/edit/${category.id}`}
-                                                            className="btn btn-light btn-sm mr-2">
-                                                            <FontAwesomeIcon icon={faEdit} className="mr-2" /> Edit
+                                                            className="btn btn-light btn-sm mr-1">
+                                                            <FontAwesomeIcon icon={faEdit} />
+                                                            <div className='d-none d-md-block ml-2'>Edit</div>
                                                         </Link>
                                                         <button
-                                                            className="btn btn-light btn-sm mr-2"
+                                                            className="btn btn-light btn-sm mr-1"
+                                                            onClick={() => onToggleArchived(category)}
+                                                        >
+                                                            <FontAwesomeIcon icon={faArchive} />
+                                                            <div className='d-none d-md-block ml-2'>Archive</div>
+                                                        </button>
+                                                        <button
+                                                            className="btn btn-light btn-sm"
                                                             onClick={() => onDelete(category)}
                                                         >
-                                                            <FontAwesomeIcon icon={faTrash} className="mr-2" /> Delete
+                                                            <FontAwesomeIcon icon={faTrash} />
+                                                            <div className='d-none d-md-block ml-2'>Delete</div>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -125,30 +171,46 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                         <div>
                                                             <h6 className="mb-0">{childCategory.name}</h6>
                                                             <div className="mb-2">
-                                                                <div className={`badge badge-${childCategory.is_featured ? 'green' : 'red'}-soft badge-pill text-${childCategory.is_featured ? 'green' : 'red'} mr-1`}>
+                                                                <a
+                                                                    className={`badge badge-${childCategory.is_featured ? 'success-soft' : 'light'} badge-pill ${childCategory.is_featured ? 'text-success' : ''} mr-1`}
+                                                                    onClick={() => onToggleFeatured(childCategory)}
+                                                                    style={{ cursor: 'pointer' }}
+                                                                >
                                                                     {childCategory.is_featured ? 'Featured' : 'Not Featured'}
-                                                                </div>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="small flex-shrink-0 text-right">
-                                                        <div className='pt-3'>
+                                                    <div className="small text-gray-400 flex-shrink-0 text-right">
+                                                        {childCategory.is_archived && (<div className='font-italic'>Archived <br /></div>)}
+
+                                                        <div className='pt-2'>
                                                             <Link
                                                                 to={`/bo/products/categories/add-product?pid=${childCategory.id}`}
-                                                                className="btn btn-light btn-sm mr-2">
-                                                                <FontAwesomeIcon icon={faPlus} className="mr-2" /> Add Product
-                                                    </Link>
+                                                                className="btn btn-light btn-sm mr-1">
+                                                                <FontAwesomeIcon icon={faPlus} />
+                                                                <div className='d-none d-md-block ml-2'>Add Product</div>
+                                                            </Link>
                                                             <Link
                                                                 to={`/bo/products/categories/edit/${childCategory.id}`}
-                                                                className="btn btn-light btn-sm mr-2">
-                                                                <FontAwesomeIcon icon={faEdit} className="mr-2" /> Edit
-                                                    </Link>
+                                                                className="btn btn-light btn-sm mr-1">
+                                                                <FontAwesomeIcon icon={faEdit} />
+                                                                <div className='d-none d-md-block ml-2'>Edit</div>
+                                                            </Link>
                                                             <button
-                                                                className="btn btn-light btn-sm mr-2"
+                                                                className="btn btn-light btn-sm mr-1"
+                                                                onClick={() => onToggleArchived(childCategory)}
+                                                            >
+                                                                <FontAwesomeIcon icon={faArchive} />
+                                                                <div className='d-none d-md-block ml-2'>Archive</div>
+                                                            </button>
+                                                            <button
+                                                                className="btn btn-light btn-sm"
                                                                 onClick={() => onDelete(childCategory)}
                                                             >
-                                                                <FontAwesomeIcon icon={faTrash} className="mr-2" /> Delete
-                                                    </button>
+                                                                <FontAwesomeIcon icon={faTrash} />
+                                                                <div className='d-none d-md-block ml-2'>Delete</div>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -29,7 +29,7 @@ const Products = ({ match }) => {
 }
 
 const SidePanel = ({ productsBaseURL }) => (
-    <div className="col-lg-4 col-xl-3 mb-5">
+    <div className="col-lg-4 col-xl-3 mb-4">
         <div className="card nav-sticky">
             <div className="list-group list-group-flush small">
                  <NavLink

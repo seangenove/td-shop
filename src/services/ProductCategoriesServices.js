@@ -17,10 +17,16 @@ export const upsertProductCategory = (data, onSuccess, onFailure) => {
     AppApiRequest(Endpoints.UPSERT_PRODUCT_CATEGORY, 'POST', onSuccess, onFailure, data);
 };
 
+export const toggleIsFeaturedProductCategory = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.TOGGLE_IS_FEATURED_PRODUCT_CATEGORY}/${id}`, 'GET', onSuccess, onFailure);
+};
+
+export const toggleIsArchivedProductCategory = (id, onSuccess, onFailure) => {
+    AppApiRequest(`${Endpoints.TOGGLE_IS_ARCHIVED_PRODUCT_CATEGORY}/${id}`, 'GET', onSuccess, onFailure);
+};
+
 export const deleteProductCategory = (id, onSuccess, onFailure) => {
     AppApiRequest(`${Endpoints.DELETE_PRODUCT_CATEGORY}/${id}`, 'GET', onSuccess, onFailure);
 };
 
-export const toggleIsDisabledProductCategory = (id, onSuccess, onFailure) => {
-    AppApiRequest(`${Endpoints.TOGGLE_IS_DISABLED_PRODUCT_CATEGORY}/${id}`, 'GET', onSuccess, onFailure);
-};
+

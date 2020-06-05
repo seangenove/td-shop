@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import {
@@ -121,9 +121,15 @@ const ProductCategoryForm = ({ match }) => {
                                 >
                                     <option value={null}>None</option>
                                     {parentCategories && parentCategories.map((parentCategory) => (
-                                        <option value={parentCategory.id} key={parentCategory.id}>
-                                            {parentCategory.name}
-                                        </option>
+                                        <Fragment>
+                                        {
+                                            parentCategory.id !== formData.id && (
+                                                <option value={parentCategory.id} >
+                                                    {parentCategory.name}
+                                                </option>
+                                            )
+                                        }
+                                        </Fragment>
                                     ))}
                                 </select>
                             </div>
