@@ -16,7 +16,6 @@ export const setLoggedInUser = user => {
 export const setToken = access_token => {
 
     console.log("Action: SET_TOKEN");
-    console.log(access_token);
 
     return {
         type: 'SET_TOKEN',

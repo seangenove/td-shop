@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
-import axios from "axios";
-import Endpoints from "../../config/Endpoints";
-import { setLoggedInUser } from "../../actions/auth";
+import { setToken, setLoggedInUser } from "../../actions/auth";
+import { register, getLoggedInUser } from './../../services/AuthServices';
 
 import '../../styles/sb-admin-pro/css/styles.css'
 
-const Register = ({ setLoggedInUser }) => {
+const Register = ({ setToken, setLoggedInUser }) => {
 
     const [redirect, setRedirect] = useState(null);
     const [formData, setFormData] = useState({
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -25,31 +25,45 @@ const Register = ({ setLoggedInUser }) => {
 
     const attemptRegister = () => {
 
-        const { name, email, password } = formData;
+        const { first_name, last_name, email, password } = formData;
 
-        /**
-         * Get data from endpoint
-         */
-        axios.post(Endpoints.REGISTER, {
-            name,
+        const newUser = {
+            first_name,
+            last_name,
             email,
             password,
-            accountId: 1 // temporary
-        })
-            .then(({ data }) => {
-                setLoggedInUser(data.user);
+            role: 'customer', // default temporary
+            account_id: 1 // default temporary
+        }
+
+        register(newUser, ({ access_token }) => {
+            setToken(access_token);
+
+            getLoggedInUser(({ first_name, last_name, email, role }) => {
+
+                const user = {
+                    first_name,
+                    last_name,
+                    email,
+                    role,
+                    access_token
+                }
+
+                setLoggedInUser(user);
                 setRedirect('/');
-            })
-            .catch(error => {
+            }, error => {
                 alert("Invalid credentials");
-            });
+            })
+        }, (error) => {
+            alert("Invalid credentials");
+        });
 
     }
 
     const onSubmit = (e) => {
         // e.preventDefault();
 
-        if (!formData.name || !formData.email || !formData.confirmPassword) {
+        if (!formData.first_name || !formData.last_name || !formData.email || !formData.confirmPassword) {
             alert('Please provide your name, email address and password.')
         } else if (!validateEmail(formData.email)) {
             alert('Please provide a valid email address.')
@@ -67,10 +81,6 @@ const Register = ({ setLoggedInUser }) => {
         });
     };
 
-    useEffect(() => {
-        // code to run on component mount
-    }, [])
-
     if (redirect) {
         return <Redirect to='/' />
     }
@@ -87,16 +97,32 @@ const Register = ({ setLoggedInUser }) => {
                                     <div className="card-body">
                                         <form onSubmit={(e) => onSubmit(e)}>
                                             <div className="form-group">
-                                                <label className="small mb-1" htmlFor="name">Full Name</label>
-                                                <input
-                                                    className="form-control form-control-solid py-4"
-                                                    name="name"
-                                                    type="text"
-                                                    placeholder="Enter full name"
-                                                    value={formData.name}
-                                                    onChange={(e) => onSimpleFormChange(e)}
-                                                    required
-                                                />
+                                                <div className="form-row">
+                                                    <div className="col-md-6">
+                                                        <label className="small mb-1" htmlFor="first_name">First Name</label>
+                                                        <input
+                                                            className="form-control form-control-solid py-4"
+                                                            name="first_name"
+                                                            type="text"
+                                                            placeholder="Enter first name"
+                                                            value={formData.first_name}
+                                                            onChange={(e) => onSimpleFormChange(e)}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <label className="small mb-1" htmlFor="last_name">Last Name</label>
+                                                        <input
+                                                            className="form-control form-control-solid py-4"
+                                                            name="last_name"
+                                                            type="text"
+                                                            placeholder="Enter last name"
+                                                            value={formData.last_name}
+                                                            onChange={(e) => onSimpleFormChange(e)}
+                                                            required
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="form-group">
                                                 <label className="small mb-1" htmlFor="inputEmailAddress">Email</label>
@@ -177,6 +203,7 @@ const Register = ({ setLoggedInUser }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
+    setToken: (access_token) => dispatch(setToken(access_token)),
     setLoggedInUser: (user) => dispatch(setLoggedInUser(user))
 })
 
