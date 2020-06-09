@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
-import { setLoggedInUser } from "../../actions/auth";
-
-import { login } from './../../services/AuthServices'
+import { setToken, setLoggedInUser } from "../../actions/auth";
+import { login, getLoggedInUser } from './../../services/AuthServices'
 
 import '../../styles/sb-admin-pro/css/styles.css'
 
-const Login = ({ setLoggedInUser }) => {
+const Login = ({ setToken, setLoggedInUser }) => {
 
     const [redirect, setRedirect] = useState(null);
     const [formData, setFormData] = useState({
@@ -21,10 +20,25 @@ const Login = ({ setLoggedInUser }) => {
         if (!formData.email || !formData.password) {
             alert('Please provide email address and password.')
         } else {
-            
-            login(formData, ({ user }) => {
-                setLoggedInUser(user);
-                setRedirect('/');
+
+            login(formData, ({ access_token, token_type, expires_in }) => {
+                setToken(access_token);
+
+                getLoggedInUser(({first_name, last_name, email, role}) => {
+    
+                    const user = {
+                        first_name,
+                        last_name,
+                        email,
+                        role,
+                        access_token
+                    }
+
+                    setLoggedInUser(user);
+                    setRedirect('/');
+                }, error => {
+                    alert("Invalid credentials");
+                })
             }, (error) => {
                 alert("Invalid credentials");
             });
@@ -116,6 +130,7 @@ const Login = ({ setLoggedInUser }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
+    setToken: (access_token) => dispatch(setToken(access_token)),
     setLoggedInUser: (user) => dispatch(setLoggedInUser(user))
 })
 

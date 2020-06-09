@@ -3,9 +3,17 @@ export default (state = {}, action) => {
     switch (action.type) {
         case 'INITIALIZE_USER':
             console.log("Reducer: INITIALIZE_USER");
+            console.log('user obj', action.user);
             return {
                 ...state,
                 ...action.user,
+            };
+
+        case 'SET_TOKEN':
+            console.log("Reducer: SET_TOKEN");
+            return {
+                ...state,
+                access_token: action.access_token,
             };
 
         case 'LOGOUT_USER':

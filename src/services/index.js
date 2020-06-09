@@ -31,8 +31,8 @@ export const AppApiRequest = async (endpoint, method, onSuccess, onError, data =
 
     const loggedInUser = JSON.parse(localStorage.getItem('state')).loggedInUser;
 
-    if (loggedInUser.token) {
-        setAuthToken(loggedInUser.token);
+    if (loggedInUser.access_token) {
+        setAuthToken(loggedInUser.access_token);
     }
 
     // // For multi-tenancy later on

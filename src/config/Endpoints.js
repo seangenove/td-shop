@@ -1,6 +1,7 @@
 const Endpoints = {
-    REGISTER: '/api/users/register',
-    LOGIN: '/api/auth/login',
+    REGISTER: '/api/register',
+    LOGIN: '/api/login',
+    GET_USER_DETAILS: '/api/me',
 
     PRODUCT_CATEGORIES: '/api/product_categories',
     PARENT_PRODUCT_CATEGORIES: '/api/product_categories/parent_categories',

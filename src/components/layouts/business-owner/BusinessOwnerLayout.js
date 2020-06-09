@@ -85,7 +85,11 @@ const BusinessOwnerSidebar = ({ loggedInUser }) => {
                 </div>
                 <div className="sidenav-footer">
                     <div className="sidenav-footer-content">
-                        {loggedInUser.name && (<div className="sidenav-footer-subtitle">Logged in as: {loggedInUser.name}</div>)}
+                        {(loggedInUser.first_name || loggedInUser.last_name) && (
+                            <div className="sidenav-footer-subtitle">
+                                Logged in as: {`${loggedInUser.first_name} ${loggedInUser.last_name}`}
+                            </div>
+                        )}
 
                         <div className="sidenav-footer-title" />
                     </div>
