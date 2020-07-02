@@ -22,7 +22,7 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
 
         fetchProductCategories(({ product_categories }) => {
             console.log(product_categories);
-            setCategories(product_categories);
+            setCategories(Array.from(product_categories));
             setLoading(false);
         }, (error) => {
             alert('Error in fetching requests');
@@ -130,7 +130,7 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                     </div>
                                                 </div>
                                                 <div className="small text-gray-400 flex-shrink-0 text-right">
-                                                    {category.is_archived && (<div className='font-italic'>Archived <br /></div>)}
+                                                    {category.is_archived ? (<div className='font-italic'>Archived <br /></div>) : ''}
 
                                                     <div className='pt-2 btn-group'>
                                                         <Link
@@ -182,7 +182,7 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                         </div>
                                                     </div>
                                                     <div className="small text-gray-400 flex-shrink-0 text-right">
-                                                        {childCategory.is_archived && (<div className='font-italic'>Archived <br /></div>)}
+                                                        {childCategory.is_archived ? (<div className='font-italic'>Archived <br /></div>) : ''}
 
                                                         <div className='pt-2'>
                                                             <Link

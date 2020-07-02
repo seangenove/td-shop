@@ -29,10 +29,10 @@ export const AppApiRequest = async (endpoint, method, onSuccess, onError, data =
 
     }
 
-    const loggedInUser = JSON.parse(localStorage.getItem('state')).loggedInUser;
+    const state = JSON.parse(localStorage.getItem('state'));
 
-    if (loggedInUser.access_token) {
-        setAuthToken(loggedInUser.access_token);
+    if(state && state.loggedInUser.access_token) {
+        setAuthToken(state.loggedInUser.access_token);
     }
 
     // // For multi-tenancy later on
@@ -45,6 +45,7 @@ export const AppApiRequest = async (endpoint, method, onSuccess, onError, data =
     }).then(({ data }) => {
 
         if (_.isFunction(onSuccess)) {
+            console.log('data', data);
             onSuccess(data);
         }
     }).catch((error) => {

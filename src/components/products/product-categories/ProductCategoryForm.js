@@ -62,9 +62,9 @@ const ProductCategoryForm = ({ match }) => {
     useEffect(() => {
         setLoading(true);
 
-        fetchParentProductCategories(({ product_categories }) => {
-            console.log(product_categories);
-            setParentCategories(product_categories);
+        fetchParentProductCategories(({ parent_categories }) => {
+            console.log(parent_categories);
+            setParentCategories(parent_categories);
 
             if (id) {
                 setLoading(true);
