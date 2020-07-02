@@ -9,7 +9,6 @@ import {
     fetchProductCategories,
     deleteProductCategory,
     toggleIsFeaturedProductCategory,
-    toggleIsArchivedProductCategory,
 } from './../../../services/ProductCategoriesServices';
 
 const ProductCategoriesList = ({ productsBaseURL }) => {
@@ -50,20 +49,6 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
         if (confirmation) {
             toggleIsFeaturedProductCategory(category.id, ({ product_category }) => {
                 alert(`Successfully ${category.is_featured ? 'unfeatured' : 'featured'} ${category.name} category!`);
-
-                getCategories();
-            }, (error) => {
-                console.log(error);
-            });
-        }
-    };
-
-    const onToggleArchived = (category) => {
-        const confirmation = window.confirm(`Are you sure you want to ${category.is_archived ? 'retrieve from archive' : 'archive'} the ${category.name} category?`);
-
-        if (confirmation) {
-            toggleIsArchivedProductCategory(category.id, ({ product_category }) => {
-                alert(`Successfully ${category.is_archived ? 'retreived' : 'archived'} the ${category.name} category!`);
 
                 getCategories();
             }, (error) => {
@@ -130,8 +115,6 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                     </div>
                                                 </div>
                                                 <div className="small text-gray-400 flex-shrink-0 text-right">
-                                                    {category.is_archived ? (<div className='font-italic'>Archived <br /></div>) : ''}
-
                                                     <div className='pt-2 btn-group'>
                                                         <Link
                                                             to={`/bo/products/categories/add-product?pid=${category.id}`}
@@ -145,13 +128,6 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                             <FontAwesomeIcon icon={faEdit} />
                                                             <div className='d-none d-md-block ml-2'>Edit</div>
                                                         </Link>
-                                                        <button
-                                                            className="btn btn-light btn-sm mr-1"
-                                                            onClick={() => onToggleArchived(category)}
-                                                        >
-                                                            <FontAwesomeIcon icon={faArchive} />
-                                                            <div className='d-none d-md-block ml-2'>Archive</div>
-                                                        </button>
                                                         <button
                                                             className="btn btn-light btn-sm"
                                                             onClick={() => onDelete(category)}
@@ -182,8 +158,6 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                         </div>
                                                     </div>
                                                     <div className="small text-gray-400 flex-shrink-0 text-right">
-                                                        {childCategory.is_archived ? (<div className='font-italic'>Archived <br /></div>) : ''}
-
                                                         <div className='pt-2'>
                                                             <Link
                                                                 to={`/bo/products/categories/add-product?pid=${childCategory.id}`}
@@ -197,13 +171,6 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                                 <FontAwesomeIcon icon={faEdit} />
                                                                 <div className='d-none d-md-block ml-2'>Edit</div>
                                                             </Link>
-                                                            <button
-                                                                className="btn btn-light btn-sm mr-1"
-                                                                onClick={() => onToggleArchived(childCategory)}
-                                                            >
-                                                                <FontAwesomeIcon icon={faArchive} />
-                                                                <div className='d-none d-md-block ml-2'>Archive</div>
-                                                            </button>
                                                             <button
                                                                 className="btn btn-light btn-sm"
                                                                 onClick={() => onDelete(childCategory)}
