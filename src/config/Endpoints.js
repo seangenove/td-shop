@@ -8,6 +8,10 @@ const Endpoints = {
     UPSERT_PRODUCT_CATEGORY: '/api/product_categories/upsert',
     TOGGLE_IS_FEATURED_PRODUCT_CATEGORY: '/api/product_categories/toggle_is_featured',
     DELETE_PRODUCT_CATEGORY: '/api/product_categories/delete',
+
+    PRODUCTS: '/api/products',
+    UPSERT_PRODUCT: '/api/products/upsert',
+    DELETE_PRODUCT: '/api/products/delete',
 };
 
 export default Endpoints;
