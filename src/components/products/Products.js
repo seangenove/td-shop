@@ -4,8 +4,8 @@ import { NavLink, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faListUl, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 
-import ProductCategoryForm from './product-categories/ProductCategoryForm';
-import ProductCategoriesList from './product-categories/ProductCategoriesList';
+import ProductCategoryForm from '../product-categories/ProductCategoryForm';
+import ProductCategoriesList from '../product-categories/ProductCategoriesList';
 
 const Products = ({ match }) => {
 

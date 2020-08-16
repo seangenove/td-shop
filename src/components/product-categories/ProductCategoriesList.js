@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import Ingredients from './../../ingredients/index';
+import Ingredients from './../ingredients/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit, faArchive } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +9,7 @@ import {
     fetchProductCategories,
     deleteProductCategory,
     toggleIsFeaturedProductCategory,
-} from './../../../services/ProductCategoriesServices';
+} from './../../services/ProductCategoriesServices';
 
 const ProductCategoriesList = ({ productsBaseURL }) => {
 

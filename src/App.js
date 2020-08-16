@@ -41,6 +41,8 @@ function App() {
                     <PublicRoute exact path='/shop' component={Shop} layout={PublicLayout} />
 
                     <BusinessOwnerRoute exact path={`${URLRootPaths.BUSINESS_OWNER}/`} component={Dashboard} layout={BusinessOwnerLayout} />
+                    <BusinessOwnerRoute exact path={`${URLRootPaths.BUSINESS_OWNER}/test_products`} component={() => (<h1>test products</h1>)} layout={BusinessOwnerLayout} />
+                    <BusinessOwnerRoute exact path={`${URLRootPaths.BUSINESS_OWNER}/test_products/create`} component={() => (<h1>create product</h1>)} layout={BusinessOwnerLayout} />
                     <BusinessOwnerRoute path={`${URLRootPaths.BUSINESS_OWNER}/products`} component={Products} layout={BusinessOwnerLayout} />
                 </Switch>
             </Router>

@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Activity, Menu, LogOut, ShoppingBag } from 'react-feather';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import '../../../styles/sb-admin-pro/css/styles.css';
 
@@ -71,16 +74,57 @@ const BusinessOwnerSidebar = ({ loggedInUser }) => {
                 <div className="sidenav-menu">
                     <div className="nav accordion" id="accordionSidenav">
                         <div className="sidenav-menu-heading">Management</div>
-                        <Link to={`${URLRootPaths.BUSINESS_OWNER}`} className={'nav-link'}>
+
+                        <NavLink
+                            exact
+                            className="nav-link"
+                            activeClassName='active'
+                            to={`${URLRootPaths.BUSINESS_OWNER}`}
+                        >
                             <div className="nav-link-icon"><Activity /></div>
                             Dashboard
-                        </Link>
+                `       </NavLink>
+                    </div>
+
+                    <div className="nav accordion">
+                        <div className="sidenav-menu-heading">Shop</div>
+
+                        <a className="nav-link" href="javascript:void(0);">
+                            <div className="nav-link-icon"><ShoppingBag /></div>
+                            Products
+                            <div className="sidenav-collapse-arrow">
+                                <FontAwesomeIcon icon={faAngleDown} className='fas fa-angle-down' />
+                            </div>
+                        </a>
+
+                        <div className="collapse show">
+                            <nav className="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                                <NavLink
+                                    exact
+                                    className="nav-link"
+                                    activeClassName='active'
+                                    to={`${URLRootPaths.BUSINESS_OWNER}/test_products`} 
+                                >
+                                    All Products
+                                </NavLink>
+
+                                <NavLink
+                                    exact
+                                    className="nav-link"
+                                    activeClassName='active'
+                                    to={`${URLRootPaths.BUSINESS_OWNER}/test_products/create`}
+                                >
+                                    Create
+                                </NavLink>
+                            </nav>
+                        </div>
 
                         <Link to={`${URLRootPaths.BUSINESS_OWNER}/products/categories`} className={'nav-link'}>
                             <div className="nav-link-icon"><ShoppingBag /></div>
-                            Products
+                            Product Categories
                         </Link>
                     </div>
+
                 </div>
                 <div className="sidenav-footer">
                     <div className="sidenav-footer-content">

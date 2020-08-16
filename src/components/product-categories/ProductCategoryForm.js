@@ -5,12 +5,12 @@ import {
     fetchParentProductCategories,
     fetchProductCategoryById,
     upsertProductCategory
-} from './../../../services/ProductCategoriesServices'
+} from './../../services/ProductCategoriesServices';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
-import Ingredients from './../../ingredients/index';
+import Ingredients from './../ingredients/index';
 
 const ProductCategoryForm = ({ match }) => {
 
