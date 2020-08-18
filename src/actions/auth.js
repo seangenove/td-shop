@@ -5,7 +5,7 @@ import configureStore from "../store/configureStore";
 export const setLoggedInUser = user => {
 
     console.log("Action: INITIALIZE_USER");
-    console.log(user);
+    // console.log(user);
 
     return {
         type: 'INITIALIZE_USER',

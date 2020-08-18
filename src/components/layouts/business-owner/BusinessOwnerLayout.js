@@ -89,7 +89,7 @@ const BusinessOwnerSidebar = ({ loggedInUser }) => {
                     <div className="nav accordion">
                         <div className="sidenav-menu-heading">Shop</div>
 
-                        <a className="nav-link" href="javascript:void(0);">
+                        <a className="nav-link" href="#!">
                             <div className="nav-link-icon"><ShoppingBag /></div>
                             Products
                             <div className="sidenav-collapse-arrow">

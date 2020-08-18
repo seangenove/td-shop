@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
@@ -7,7 +7,7 @@ import { register, getLoggedInUser } from './../../services/AuthServices';
 
 import '../../styles/sb-admin-pro/css/styles.css'
 
-const Register = ({ setToken, setLoggedInUser }) => {
+const Register = ({ setToken, setLoggedInUser, loggedInUser }) => {
 
     const [redirect, setRedirect] = useState(null);
     const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ const Register = ({ setToken, setLoggedInUser }) => {
     });
 
     const validateEmail = (email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
@@ -41,13 +41,7 @@ const Register = ({ setToken, setLoggedInUser }) => {
 
             getLoggedInUser(({ first_name, last_name, email, role }) => {
 
-                const user = {
-                    first_name,
-                    last_name,
-                    email,
-                    role,
-                    access_token
-                }
+                const user = { first_name, last_name, email, role, access_token }
 
                 setLoggedInUser(user);
                 setRedirect('/');
@@ -81,8 +75,14 @@ const Register = ({ setToken, setLoggedInUser }) => {
         });
     };
 
+    useEffect(() => {
+        if (!(Object.keys(loggedInUser).length === 0 && loggedInUser)) {
+            setRedirect(loggedInUser.role === 'business_owner' ? '/bo' : '/');
+        }
+    }, []);
+
     if (redirect) {
-        return <Redirect to='/' />
+        return <Redirect to={redirect} />
     }
 
     return (
@@ -202,9 +202,13 @@ const Register = ({ setToken, setLoggedInUser }) => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    loggedInUser: state.loggedInUser
+});
+
 const mapDispatchToProps = dispatch => ({
     setToken: (access_token) => dispatch(setToken(access_token)),
     setLoggedInUser: (user) => dispatch(setLoggedInUser(user))
-})
+});
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

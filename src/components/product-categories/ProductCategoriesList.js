@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Ingredients from './../ingredients/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit, faArchive } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import {
     fetchProductCategories,
@@ -104,6 +104,7 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                         <h6 className="mb-0">{category.name}</h6>
                                                         <div className="mb-2">
                                                             <a
+                                                                href="#!"
                                                                 className={`badge badge-${category.is_featured ? 'success-soft' : 'light'} badge-pill ${category.is_featured ? 'text-success' : ''} mr-1`}
                                                                 onClick={() => onToggleFeatured(category)}
                                                                 style={{ cursor: 'pointer' }}
@@ -148,6 +149,7 @@ const ProductCategoriesList = ({ productsBaseURL }) => {
                                                             <h6 className="mb-0">{childCategory.name}</h6>
                                                             <div className="mb-2">
                                                                 <a
+                                                                    href="#!"
                                                                     className={`badge badge-${childCategory.is_featured ? 'success-soft' : 'light'} badge-pill ${childCategory.is_featured ? 'text-success' : ''} mr-1`}
                                                                     onClick={() => onToggleFeatured(childCategory)}
                                                                     style={{ cursor: 'pointer' }}

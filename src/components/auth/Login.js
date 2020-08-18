@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
@@ -7,13 +7,25 @@ import { login, getLoggedInUser } from './../../services/AuthServices'
 
 import '../../styles/sb-admin-pro/css/styles.css'
 
-const Login = ({ setToken, setLoggedInUser }) => {
+const Login = ({ setToken, setLoggedInUser, loggedInUser }) => {
 
     const [redirect, setRedirect] = useState(null);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+
+    const onSimpleFormChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        attemptLogin();
+    };
 
     const attemptLogin = () => {
 
@@ -24,18 +36,11 @@ const Login = ({ setToken, setLoggedInUser }) => {
             login(formData, ({ access_token, token_type, expires_in }) => {
                 setToken(access_token);
 
-                getLoggedInUser(({first_name, last_name, email, role}) => {
-    
-                    const user = {
-                        first_name,
-                        last_name,
-                        email,
-                        role,
-                        access_token
-                    }
+                getLoggedInUser(({ first_name, last_name, email, role }) => {
+                    const user = { first_name, last_name, email, role, access_token }
 
                     setLoggedInUser(user);
-                    setRedirect('/');
+                    setRedirect(user.role === 'business_owner' ? '/bo' : '/');
                 }, error => {
                     alert("Invalid credentials");
                 })
@@ -43,23 +48,16 @@ const Login = ({ setToken, setLoggedInUser }) => {
                 alert("Invalid credentials");
             });
         };
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        attemptLogin();
-        // alert(JSON.stringify(formData));
     };
 
-    const onSimpleFormChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
+    useEffect(() => {
+        if (!(Object.keys(loggedInUser).length === 0 && loggedInUser)) {
+            setRedirect(loggedInUser.role === 'business_owner' ? '/bo' : '/');
+        }
+    }, []);
 
     if (redirect) {
-        return <Redirect to='/' />
+        return <Redirect to={redirect} />;
     }
 
     return (
@@ -129,9 +127,13 @@ const Login = ({ setToken, setLoggedInUser }) => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    loggedInUser: state.loggedInUser
+});
+
 const mapDispatchToProps = dispatch => ({
     setToken: (access_token) => dispatch(setToken(access_token)),
     setLoggedInUser: (user) => dispatch(setLoggedInUser(user))
-})
+});
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
