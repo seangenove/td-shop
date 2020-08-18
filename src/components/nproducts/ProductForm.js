@@ -14,17 +14,16 @@ const ProductForm = ({ match }) => {
     const [formData, setFormData] = useState({
         id: null,
         product_category_id: null,
-        name: null,
-        description: null,
-        sku: null,
-        stock: null,
-        image_url: null,
-        shipping_cost: null,
-        handling_cost: null,
-        product_cost: null,
-        final_cost: null,
-        msrp: null,
-        markup_percentage: null,
+        name: '',
+        description: '',
+        sku: '',
+        stock: 0.00,
+        image_url: '',
+        shipping_cost: 0.00,
+        handling_cost: 0.00,
+        product_cost: 0.00,
+        msrp: 0.00,
+        markup_percentage: 0.00,
         attributes: null,
     });
 
@@ -79,7 +78,11 @@ const ProductForm = ({ match }) => {
         } else {
         }
 
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData])
 
     if (redirect) {
         return <Redirect to={redirect} />
@@ -87,81 +90,195 @@ const ProductForm = ({ match }) => {
 
     return (
 
-        <div class="container-fluid mt-5">
-            <div class="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mb-4">
-                <div class="mr-4 mb-3 mb-sm-0">
-                    <h1 class="mb-0">Dashboard</h1>
-                    <div class="small">
-                        <span class="font-weight-500 text-primary">Monday</span> &middot;
+        <div className="container-fluid mt-5">
+            <div className="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mb-4">
+                <div className="mr-4 mb-3 mb-sm-0">
+                    <h1 className="mb-0">Dashboard</h1>
+                    <div className="small">
+                        <span className="font-weight-500 text-primary">Monday</span> &middot;
                                 August 8, 2020 &middot; 04:44 am
                     </div>
                 </div>
             </div>
 
-
-            <div class="card mb-4">
-                <div class="card-header">
+            <div className="card mb-4">
+                <div className="card-header">
                     Add Product
                 </div>
 
-                <div class="card-body">
+                <div className="card-body">
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="row">
 
-                            <div className="col-md-6">
-                                <div class="form-group">
-                                    <label for="first-name">Name</label>
-                                    <input
-                                        class="form-control"
-                                        id="name"
-                                        name="name"
-                                        type="text"
-                                        value={formData.name}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
+                            <div className="col-md-5">
+                                <h1>Photos here</h1>
+                            </div>
+
+                            <div className="col-md-7">
+                                <div className="row">
+                                    <div className="col-md-7">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">Name</label>
+                                            <input
+                                                className="form-control"
+                                                id="name"
+                                                name="name"
+                                                type="text"
+                                                value={formData.name}
+                                                onChange={(e) => onSimpleFormChange(e)}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-5">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">SKU</label>
+                                            <input
+                                                className="form-control"
+                                                id="sku"
+                                                name="sku"
+                                                type="text"
+                                                value={formData.sku}
+                                                onChange={(e) => onSimpleFormChange(e)}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="first-name">SKU</label>
-                                    <input
-                                        class="form-control"
-                                        id="sku"
-                                        name="sku"
-                                        type="text"
-                                        value={formData.sku}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
+                                <div className="row">
+                                    <div className="col-md-4">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">Stock</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">₱</div>
+                                                </div>
+                                                <input
+                                                    className="form-control"
+                                                    id="stock"
+                                                    name="stock"
+                                                    type="number"
+                                                    min="0"
+                                                    max="500000000"
+                                                    value={formData.stock}
+                                                    onChange={(e) => onSimpleFormChange(e)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">MSRP</label>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">₱</div>
+                                                </div>
+                                                <input
+                                                    className="form-control"
+                                                    id="msrp"
+                                                    name="msrp"
+                                                    type="number"
+                                                    min="0"
+                                                    min="50000"
+                                                    value={formData.msrp}
+                                                    onChange={(e) => onSimpleFormChange(e)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-4">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">Markup Percentage</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">%</div>
+                                                </div>
+                                                <input
+                                                    className="form-control"
+                                                    id="markup_percentage"
+                                                    name="markup_percentage"
+                                                    type="number"
+                                                    min="0"
+                                                    min="3"
+                                                    value={formData.markup_percentage}
+                                                    onChange={(e) => onSimpleFormChange(e)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="first-name">Stock</label>
-                                    <input
-                                        class="form-control"
-                                        id="stock"
-                                        name="stock"
-                                        type="text"
-                                        value={formData.stock}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
+                                <div className="row">
+                                    <div className="col-md-4">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">Shipping Cost</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">₱</div>
+                                                </div>
+                                                <input
+                                                    className="form-control"
+                                                    id="shipping_cost"
+                                                    name="shipping_cost"
+                                                    type="number"
+                                                    min="0"
+                                                    min="5000"
+                                                    value={formData.shipping_cost}
+                                                    onChange={(e) => onSimpleFormChange(e)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">Handling Cost</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">₱</div>
+                                                </div>
+                                                <input
+                                                    className="form-control"
+                                                    id="handling_cost"
+                                                    name="handling_cost"
+                                                    type="number"
+                                                    min="0"
+                                                    min="5000"
+                                                    value={formData.handling_cost}
+                                                    onChange={(e) => onSimpleFormChange(e)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="form-group">
+                                            <label htmlFor="first-name">Product Cost</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">₱</div>
+                                                </div>
+                                                <input
+                                                    className="form-control"
+                                                    id="product_cost"
+                                                    name="product_cost"
+                                                    type="number"
+                                                    min="0"
+                                                    min="5000"
+                                                    value={formData.product_cost}
+                                                    onChange={(e) => onSimpleFormChange(e)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="first-name">MSRP</label>
-                                    <input
-                                        class="form-control"
-                                        id="msrp"
-                                        name="msrp"
-                                        type="text"
-                                        value={formData.msrp}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="first-name">Description</label>
+                                <div className="form-group">
+                                    <label htmlFor="first-name">Description</label>
                                     <textarea
-                                        rows="4"
-                                        class="form-control"
+                                        rows="5"
+                                        className="form-control"
                                         id="description"
                                         name="description"
                                         type="text"
@@ -171,70 +288,8 @@ const ProductForm = ({ match }) => {
                                 </div>
                             </div>
 
-                            <div className="col-md-6">
-                                <div class="form-group">
-                                    <label for="first-name">Shipping Cost</label>
-                                    <input
-                                        class="form-control"
-                                        id="shipping_cost"
-                                        name="shipping_cost"
-                                        type="text"
-                                        value={formData.shipping_cost}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="first-name">Handling Cost</label>
-                                    <input
-                                        class="form-control"
-                                        id="handling_cost"
-                                        name="handling_cost"
-                                        type="text"
-                                        value={formData.handling_cost}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="first-name">Product Cost</label>
-                                    <input
-                                        class="form-control"
-                                        id="product_cost"
-                                        name="product_cost"
-                                        type="text"
-                                        value={formData.product_cost}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="first-name">Final Cost</label>
-                                    <input
-                                        class="form-control"
-                                        id="final_cost"
-                                        name="final_cost"
-                                        type="text"
-                                        value={formData.final_cost}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="first-name">Markup Percentage</label>
-                                    <input
-                                        class="form-control"
-                                        id="markup_percentage"
-                                        name="markup_percentage"
-                                        type="text"
-                                        value={formData.markup_percentage}
-                                        onChange={(e) => onSimpleFormChange(e)}
-                                    />
-                                </div>
-                            </div>
-
-                            <div class="col-12 text-right">
-                                <input type="submit" value="Save" class="btn btn-success" />
+                            <div className="col-12 text-right">
+                                <input type="submit" value="Save" className="btn btn-success" />
                             </div>
 
                         </div>
